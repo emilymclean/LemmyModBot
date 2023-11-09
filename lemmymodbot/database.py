@@ -19,7 +19,7 @@ class Database:
                                         "id"	INTEGER NOT NULL UNIQUE,
                                         "toxicity"	REAL,
                                         "non_toxicity"	REAL,
-                                        "outcome" TEXT,
+                                        "responders" TEXT,
                                         PRIMARY KEY("id")
         );'''
         self.check_table_exists('comments', create_comments_table_sql)
@@ -29,7 +29,7 @@ class Database:
                                 "name_non_toxicity"	REAL,
                                 "body_toxicity"	REAL,
                                 "body_non_toxicity"	REAL,
-                                "outcome"	TEXT,
+                                "responders"	TEXT,
                                 "phash" TEXT,
                                 "link" TEXT,
                                 PRIMARY KEY("id"));'''
@@ -103,19 +103,19 @@ class Database:
             conn.execute(sql, (comment_id, results['toxicity'], results['non_toxicity']))
 
     def add_outcome_to_comment(self, comment_id, outcome):
-        """ add an outcome to a comment record in the database """
+        """ add an responders to a comment record in the database """
         with self._session() as conn:
-            # tidy up the outcome string to remove quotes which might break the SQL statement
+            # tidy up the responders string to remove quotes which might break the SQL statement
             outcome = outcome.replace('"', '')
             outcome = outcome.replace("'", "")
-            sql = '''UPDATE comments SET outcome=? WHERE id=?;'''
+            sql = '''UPDATE comments SET responders=? WHERE id=?;'''
             conn.execute(sql, (outcome, comment_id))
 
     def add_outcome_to_post(self, post_id, outcome):
-        """ add an outcome to a post record in the database """
+        """ add an responders to a post record in the database """
 
         with self._session() as conn:
-            sql = '''UPDATE posts SET outcome=? WHERE id=?;'''
+            sql = '''UPDATE posts SET responders=? WHERE id=?;'''
             conn.execute(sql, (outcome, post_id))
 
     def add_to_posts_list(self, post_id, detox_name_results, detox_body_results, extras, link):

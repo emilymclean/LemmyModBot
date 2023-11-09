@@ -11,9 +11,9 @@ from pylemmy import Lemmy
 from pylemmy.models.post import Post
 from pylemmy.models.comment import Comment
 
-from . import MatrixFacade
+from . import MatrixFacade, LemmyHandle, ContentType, Content
 from .config import Config, environment_config
-from lemmymodbot.processors.base import Processor, Content, ContentType, LemmyHandle
+from lemmymodbot.processors.base import Processor
 from .reconnection_manager import ReconnectionDelayManager
 from .database import Database
 

@@ -2,8 +2,8 @@ from typing import List, Optional
 
 from magic import Magic
 
-from lemmymodbot.processors import Processor, Content, LemmyHandle, ContentResult
-from lemmymodbot.processors.base import ContentType
+from lemmymodbot.processors import Processor
+from lemmymodbot import LemmyHandle, ContentType, Content, ContentResult
 
 
 class MimeProcessor(Processor):

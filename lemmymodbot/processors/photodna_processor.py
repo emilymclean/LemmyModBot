@@ -1,8 +1,7 @@
 import os
 
-from lemmymodbot import PhotoDNAClient
-from lemmymodbot.processors import Processor, Content, LemmyHandle, ContentResult
-from lemmymodbot.processors.base import ContentType
+from lemmymodbot import PhotoDNAClient, LemmyHandle, ContentType, Content, ContentResult
+from lemmymodbot.processors import Processor
 
 
 class PhotoDNAProcessor(Processor):
@@ -22,7 +21,7 @@ class PhotoDNAProcessor(Processor):
 
     def _delete_and_warn(self, handle: LemmyHandle, content: Content) -> ContentResult:
         handle.remove_thing("CSAM content detected")
-        handle.send_message(
+        handle.send_message_to_matrix(
             f"""!!! Important !!!\nCSAM content was detected in the following post:
             {content.link_to_content}. Please collect metadata on the user and submit a report!"""
         )
