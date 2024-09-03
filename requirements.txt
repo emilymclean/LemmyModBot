@@ -34,14 +34,14 @@ pykson==0.9.9.8.17
 pytest==8.3.2
 python-dateutil==2.9.0.post0 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
 python-magic==0.4.27
-pythonlemmy==0.1.1
+pythonlemmy==0.1.2
 pytz==2024.1
 pywavelets==1.6.0 ; python_version >= '3.9'
 requests==2.32.3
 scikit-learn==1.5.1
 scipy==1.13.1 ; python_version >= '3.9'
 six==1.16.0 ; python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3'
-sqlalchemy==2.0.32
+sqlalchemy==2.0.33
 sympy==1.13.2 ; python_version >= '3.8'
 threadpoolctl==3.5.0 ; python_version >= '3.8'
 tomli==2.0.1 ; python_version < '3.11'
