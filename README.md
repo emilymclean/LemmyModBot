@@ -27,17 +27,6 @@ To set up further modules (as detailed further below), mount a replacement `main
 
 The bot can also be run un-containerised, either by cloning the repo, or by using the pip package.
 
-### ⚠️ Compatibility ⚠️
-Version 0.19.0+ of Lemmy incompatibally updates the method through which clients interact with the API. By default, this project
-will work with these newer versions. If your community is hosted on an older instance, the following steps are necessary for the
-bot to function:
-
-If you are using docker, ensure your container uses versions prefixed with `compat-0.18-`.
-
-If you are using the package hosted on pypi, *explicitly* declare your plemmy version as `0.3.11`.
-
-If you are running from source, update the plemmy version in Pipfile.
-
 ## Modules
 Different aspects of moderation are divided into "Processors". These scan and report content for a single kind of 
 violation, and can be configured individually. Currently, there are eight different processors:
