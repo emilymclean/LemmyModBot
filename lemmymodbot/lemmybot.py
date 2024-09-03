@@ -8,8 +8,8 @@ import sys
 import os
 from pprint import pprint
 
-from plemmy import LemmyHttp
-from plemmy.views import PostView, CommentView
+from pythonlemmy import LemmyHttp
+from pythonlemmy.views import PostView, CommentView
 
 from . import MatrixFacade
 from .config import Config, environment_config

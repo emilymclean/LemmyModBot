@@ -2,8 +2,8 @@ from abc import abstractmethod
 
 from typing import Callable
 
-from plemmy import LemmyHttp
-from plemmy.responses import GetPostsResponse, GetCommentsResponse, GetCommunityResponse
+from pythonlemmy import LemmyHttp
+from pythonlemmy.responses import GetPostsResponse, GetCommentsResponse, GetCommunityResponse
 
 from lemmymodbot.data import MonitorPersistence, PostMonitorPersistence, CommentMonitorPersistence
 

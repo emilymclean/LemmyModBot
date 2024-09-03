@@ -68,7 +68,7 @@ class TestPostPaginator(unittest.TestCase):
         post_paginator.paginate(mock_task, 1, 10)
 
         self.mock_lemmy.get_posts.assert_called_with(
-            community_id=70513,
+            community_id=307222,
             page=2,
             limit=10,
             sort="Old"

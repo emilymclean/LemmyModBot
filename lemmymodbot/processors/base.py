@@ -4,9 +4,9 @@ from typing import List, Any, Optional, Union, Dict
 
 from dateutil import parser
 from dateutil.tz import UTC
-from plemmy import LemmyHttp
-from plemmy.objects import Person
-from plemmy.views import PostView, CommentView
+from pythonlemmy import LemmyHttp
+from pythonlemmy.objects import Person
+from pythonlemmy.views import PostView, CommentView
 
 from lemmymodbot.helpers import fetch_image
 from lemmymodbot.database import Database
@@ -37,7 +37,7 @@ class LemmyHandle:
             print(f"{content}")
             return
 
-        actor_id = self.elem.creator.actor_id
+        actor_id = self.elem.creator.id
         self.lemmy_http.create_private_message(f"{content}{self.content_footer}", actor_id)
 
     def post_comment(self, content: str):

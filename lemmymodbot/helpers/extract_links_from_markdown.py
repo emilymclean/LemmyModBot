@@ -16,7 +16,7 @@ def _internal_extract_links_from_markdown(token: Token) -> List[str]:
     if isinstance(token, Link) or isinstance(token, AutoLink):
         return [token.target]
 
-    if "children" in vars(token):
+    if hasattr(token, "children") and token.children is not None:
         out = []
         for child in token.children:
             out += _internal_extract_links_from_markdown(child)
