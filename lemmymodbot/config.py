@@ -23,8 +23,9 @@ class MatrixConfig:
 
 
 class Config:
-    username: str
-    password: str
+    username: Optional[str]
+    password: Optional[str]
+    jwt: Optional[str]
     instance: str
     owner_username: str
     communities: List[str]
@@ -33,16 +34,18 @@ class Config:
 
     def __init__(
             self,
-            username: str,
-            password: str,
+            username: Optional[str],
+            password: Optional[str],
             instance: str,
             owner_username: str,
             communities: List[str],
+            jwt: Optional[str] = None,
             matrix_config: MatrixConfig = None,
             debug_mode: bool = False,
     ):
         self.username = username
         self.password = password
+        self.jwt = jwt
         self.instance = instance
         self.owner_username = owner_username
         self.communities = communities
@@ -57,6 +60,7 @@ def environment_config():
         os.getenv("LEMMY_INSTANCE"),
         os.getenv("LEMMY_OWNER_USERNAME"),
         [x.strip() for x in os.getenv("LEMMY_COMMUNITIES").split(',')],
+        os.getenv("LEMMY_JWT"),
         MatrixConfig(
             os.getenv("MATRIX_INSTANCE"),
             os.getenv("MATRIX_USERNAME"),
