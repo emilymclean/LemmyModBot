@@ -1,6 +1,6 @@
 # Rename this file to config.py and update the values below.
 import os
-from typing import List
+from typing import List, Optional
 
 
 class MatrixConfig:
