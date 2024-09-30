@@ -53,7 +53,13 @@ class LemmyBot:
             processor.setup()
 
         self.lemmy = LemmyHttp(self.config.instance)
-        self.lemmy.login(self.config.username, self.config.password)
+
+        if self.config.username is not None and self.config.password is not None:
+            self.lemmy.login(self.config.username, self.config.password)
+        elif self.config.jwt is not None:
+            self.lemmy.set_jwt(self.config.jwt)
+        else:
+            raise Exception("Must provide username and password, or JWT for LemmyBot.")
         # "custom user agent (by " + self.config.owner_username + ")"
 
         db_directory_name = 'data'
