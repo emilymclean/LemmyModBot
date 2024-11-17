@@ -13,19 +13,18 @@ jobs:
 
     steps:
       - name: Check out code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: '0'
       - name: Install GitVersion
-        uses: gittools/actions/gitversion/setup@v0.9.6
+        uses: gittools/actions/gitversion/setup@v3.0.0
         with:
           versionSpec: '5.x'
       - name: Use GitVersion
         id: gitversion # step id used as reference for output values
-        uses: gittools/actions/gitversion/execute@v0.9.6
+        uses: gittools/actions/gitversion/execute@v3.0.0
         with:
           useConfigFile: true
-          showConfig: true
           configFilePath: ./gitversion.yml
       - name: Display SemVer
         run: |
@@ -38,30 +37,19 @@ jobs:
       contents: write
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+        uses: actions/checkout@v4
+      - name: Create tag for release
+        uses: rickstaa/action-create-tag@v1
+        with:
+          tag: v${{ needs.version.outputs.version }}
+      - id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v2
         with:
           tag_name: v${{ needs.version.outputs.version }}
-          release_name: lemmymod-${{ needs.version.outputs.version }}
-          draft: false
+          name: Release ${{ needs.version.outputs.version }}
           prerelease: ${{ github.ref == 'refs/heads/develop' }}
-      - name: Create Backend ZIP deployment package
-        run: zip -r lemmymod-${{ needs.version.outputs.version }}.zip . -x@exclude.lst;
-      - name: Upload ZIP as Release Asset
-        id: upload-release-asset
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./lemmymod-${{ needs.version.outputs.version }}.zip
-          asset_name: lemmymod-${{ needs.version.outputs.version }}.zip
-          asset_content_type: application/zip
-
   docker:
     runs-on: ubuntu-latest
     needs: version
@@ -70,18 +58,18 @@ jobs:
       packages: write
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
       - id: repo
         uses: ASzc/change-string-case-action@v5
         with:
           string: ${{ github.repository }}
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           images: |
             ghcr.io/${{ steps.repo.outputs.lowercase }}
@@ -94,7 +82,7 @@ jobs:
             type=semver,pattern={{major}}
             type=sha
       - name: Log in to the Container registry
-        uses: docker/login-action@f054a8b539a109f9f41c372932f1ae047eff08c9
+        uses: docker/login-action@v3
         with:
           registry: https://ghcr.io
           username: ${{ github.actor }}
@@ -119,7 +107,7 @@ jobs:
       url: https://pypi.org/p/lemmymodbot-test
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
       - name: Find and Replace
